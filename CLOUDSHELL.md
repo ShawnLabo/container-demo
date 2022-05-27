@@ -211,3 +211,148 @@ docker push gcr.io/<walkthrough-project-id/>/sample:v2
 docker run -ti --rm gcr.io/<walkthrough-project-id/>/sample:v2
 ```
 <br>
+
+
+## Kubernetes デモ
+
+* kubectl 紹介
+* Deployment
+* Service
+* セルフヒーリング
+* ローリング アップデート
+
+## kubectl 紹介
+
+Kubernetes には kubectl という CLI ツールがあります。
+
+今回はGKEのKubernetesを使うので、gcloud コマンドで認証します。
+
+```sh
+gcloud container clusters get-credentials demo-cluster --region asia-northeast1
+```
+<br>
+
+例えば、現在の Kubernetes ノード一覧を取得できます。
+
+```sh
+kubectl get nodes
+```
+<br>
+
+## Deployment の宣言
+
+このセクションでは Deployment を宣言して Pod が作成される様子を確認します。
+
+作業前にDeploymentが存在しないことを確認します。
+
+```sh
+kubectl get deployment
+```
+<br>
+
+また、Podが存在しないことを確認します。
+
+```sh
+kubectl get pods
+```
+<br>
+
+<walkthrough-editor-open-file filePath="./container-demo/deployment.yaml">Deploymentを開く</walkthrough-editor-open-file>
+
+Kubernetes に Deployment の宣言を適用します。
+
+```sh
+cd ..
+kubectl apply -f deployment.yaml
+```
+<br>
+
+Deployment一覧を確認します。
+
+```sh
+kubectl get deployments
+```
+<br>
+
+Pod 一覧を確認します。
+
+```sh
+kubectl get pods --watch
+```
+<br>
+
+## Service の宣言
+
+このセクションでは Service を宣言して、Service により作成されたエンドポイントにアクセスします。
+
+<walkthrough-editor-open-file filePath="./container-demo/service.yaml">serviceを開く</walkthrough-editor-open-file>
+
+Service の宣言を Kubernetes に適用します。
+
+```sh
+kubectl apply -f service.yaml
+```
+<br>
+
+Service が作成される様子を確認します。
+
+```sh
+kubectl get services --watch
+```
+
+## セルフヒーリング
+
+このセクションでは Pod を手動で削除することで Deployment のセルフヒーリング機能を確認します。
+
+Pod の様子を確認します。
+
+```sh
+kubectl get pods --watch
+```
+<br>
+
+手動で Pod を削除します。
+
+```sh
+name=$(kubectl get pods -o jsonpath='{.items[0].metadata.name}')
+kubectl delete pod $name
+```
+<br>
+
+Deployment がすぐに新しい Pod を作り直す様子が確認できます。
+
+## ローリングアップデート
+
+このセクションでは　Deployment のローリングアップデート機能を確認します。
+
+Deploymentの `NAME` 環境変数を書き換えます。
+
+<walkthrough-editor-open-file filePath="./container-demo/deployment.yaml">Deploymentを編集する</walkthrough-editor-open-file>
+
+Pod の様子を確認します。
+
+```sh
+kubectl get pods --watch
+```
+<br>
+
+curl コマンドでレスポンスも確認します。
+
+```sh
+ip_address=$(kubectl get service hello -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+while :; do curl -s http://${ip_address}/; sleep 1; done
+```
+<br>
+
+新しい Deployment の宣言を適用します。
+
+```sh
+kubectl apply -f deployment.yaml
+```
+<br>
+
+1つずつ Pod が新しくなっていく様子が確認できます。
+
+## GKE デモ
+
+## Cloud Run デモ
