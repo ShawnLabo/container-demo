@@ -380,6 +380,17 @@ kubectl apply -f k8s/deployment.yaml
 
 ## GKE デモ
 
+<walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration>
+
+[Console](https://console.cloud.google.com/kubernetes/list/overview?project=<walkthrough-project-id/>) を開いて以下の項目を確認します。
+
+* クラスタの一覧・作成画面
+* Deployment 一覧・詳細
+  * 概要 (モニタリングやマネージド Pod)
+  * ログ
+  * 変更履歴
+* Service 一覧・詳細
+
 ## Cloud Run デモ
 
 ## Well done!
