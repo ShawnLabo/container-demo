@@ -42,6 +42,7 @@ export TF_VAR_project_id="<walkthrough-project-id/>"
 cd terraform
 terraform init
 terraform apply
+cd ..
 ```
 
 ## コンテナ デモ
@@ -56,7 +57,6 @@ terraform apply
 * Dockerfile によるイメージビルド
 * Dockerfile によるランタイム アップデート
 * イメージをレジストリに Push
-
 
 ## コンテナ Hello world
 
@@ -382,7 +382,7 @@ kubectl apply -f k8s/deployment.yaml
 
 <walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration>
 
-[Console](https://console.cloud.google.com/kubernetes/list/overview?project=<walkthrough-project-id/>) を開いて以下の項目を確認します。
+[Console](https://console.cloud.google.com/kubernetes/list/overview) を開いて以下の項目を確認します。
 
 * クラスタの一覧・作成画面
 * Deployment 一覧・詳細
@@ -406,7 +406,7 @@ docker push gcr.io/<walkthrough-project-id/>/hello
 ```
 <br>
 
-[Console](https://console.cloud.google.com/run?project=<walkthrough-project-id/>) を開いてサービスを作成します。
+[Console](https://console.cloud.google.com/run) を開いてサービスを作成します。
 
 * イメージ: `gcr.io/<walkthrough-project-id/>/hello`
 * 未認証の呼び出しを許可
