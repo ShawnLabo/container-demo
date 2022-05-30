@@ -1,4 +1,6 @@
-# コンテナ デモ
+# コンテナ・Kubernetes デモ
+
+<walkthrough-tutorial-duration duration="9999"></walkthrough-tutorial-duration>
 
 <!--
   br タグは読みやすく表示するために利用。
@@ -15,7 +17,9 @@
 
 ## 事前準備
 
-デモ前に実施してください。
+<walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration>
+
+**必ずデモ前に実施してください。**
 
 ### プロジェクトの設定
 
@@ -36,10 +40,13 @@ Terraformを実行してください。
 ```sh
 export TF_VAR_project_id="<walkthrough-project-id/>"
 cd terraform
+terraform init
 terraform apply
 ```
 
 ## コンテナ デモ
+
+<walkthrough-tutorial-duration duration="20"></walkthrough-tutorial-duration>
 
 コンテナに関するデモを実施します。
 
@@ -69,7 +76,7 @@ Docker Hub にある [Node.js](https://hub.docker.com/_/node)のイメージか�
 まず、コンテナ起動前の `node` プロセスを確認します。
 
 ```sh
-ps a | grep node
+ps a | grep node | grep -v grep
 ```
 <br>
 
@@ -83,11 +90,13 @@ docker run -ti --rm node
 再度ホスト側で `node` プロセスを確認します。
 
 ```sh
-ps a | grep node
+ps a | grep node | grep -v grep
 ```
 <br>
 
 このように、ホスト側からするとコンテナはただのプロセスであることが確認できます。
+
+node コンテナから `Ctrl-D` で抜けてください。
 
 ## コンテナの隔離性の確認
 
@@ -136,17 +145,17 @@ rm -rf --no-preserve-root /
 
 TODO: Change paths
 
-<walkthrough-editor-open-file filePath="./container-demo/sample-app/app/main.py">サンプルコードを開く</walkthrough-editor-open-file>
+<walkthrough-editor-open-file filePath="./sample-app/app/main.py">サンプルコードを開く</walkthrough-editor-open-file>
 
 ローカルで実行します。
 
 ```sh
-cd container-demo/sample-app
+cd sample-app
 python app/main.py
 ```
 <br>
 
-<walkthrough-editor-open-file filePath="./container-demo/sample-app/Dockerfile">Dockerfileを開く</walkthrough-editor-open-file>
+<walkthrough-editor-open-file filePath="./sample-app/Dockerfile">Dockerfileを開く</walkthrough-editor-open-file>
 
 `Dockerfile` からコンテナイメージをビルドします。
 
@@ -356,3 +365,9 @@ kubectl apply -f deployment.yaml
 ## GKE デモ
 
 ## Cloud Run デモ
+
+## Well done!
+
+以上でデモは終了です。
+
+<walkthrough-conclusion-trophy/>
