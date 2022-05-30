@@ -143,8 +143,6 @@ rm -rf --no-preserve-root /
 
 ## Dockerfile によるイメージビルド
 
-TODO: Change paths
-
 <walkthrough-editor-open-file filePath="./sample-app/app/main.py">サンプルコードを開く</walkthrough-editor-open-file>
 
 ローカルで実行します。
