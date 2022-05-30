@@ -393,6 +393,25 @@ kubectl apply -f k8s/deployment.yaml
 
 ## Cloud Run デモ
 
+<walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration>
+
+このセクションではKubernetesデモで使った`hello`イメージをCloud Runにデプロイします。
+
+Kubernetes のデモで使ったイメージを使用します。GHCRからGCRにPull/Pushします。
+
+```sh
+docker pull ghcr.io/shawnlabo/hello
+docker tag ghcr.io/shawnlabo/hello gcr.io/<walkthrough-project-id/>/hello
+docker push gcr.io/<walkthrough-project-id/>/hello
+```
+
+
+[Console](https://console.cloud.google.com/run?project=<walkthrough-project-id/>) を開いてサービスを作成します。
+
+* イメージ: `gcr.io/<walkthrough-project-id/>/hello`
+* 環境変数 `NAME` を適当に設定
+* 未認証の呼び出しを許可
+
 ## Well done!
 
 以上でデモは終了です。
