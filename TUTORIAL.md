@@ -1,6 +1,6 @@
 # コンテナ・Kubernetes デモ
 
-<walkthrough-tutorial-duration duration="9999"></walkthrough-tutorial-duration>
+<walkthrough-tutorial-duration duration="60"></walkthrough-tutorial-duration>
 
 <!--
   br タグは読みやすく表示するために利用。
@@ -47,7 +47,7 @@ cd ..
 
 ## コンテナ デモ
 
-<walkthrough-tutorial-duration duration="20"></walkthrough-tutorial-duration>
+<walkthrough-tutorial-duration duration="15"></walkthrough-tutorial-duration>
 
 コンテナに関するデモを実施します。
 
