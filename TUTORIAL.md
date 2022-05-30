@@ -222,6 +222,8 @@ docker run -ti --rm gcr.io/<walkthrough-project-id/>/sample:v2
 
 ## Kubernetes デモ
 
+<walkthrough-tutorial-duration duration="15"></walkthrough-tutorial-duration>
+
 * kubectl 紹介
 * Deployment
 * Service
@@ -250,7 +252,9 @@ kubectl get nodes
 
 このセクションでは Deployment を宣言して Pod が作成される様子を確認します。
 
-作業前にDeploymentが存在しないことを確認します。
+<walkthrough-editor-open-file filePath="./k8s/deployment.yaml">Deploymentを確認する</walkthrough-editor-open-file>
+
+作業前にまだDeploymentが存在しないことを確認します。
 
 ```sh
 kubectl get deployment
@@ -264,13 +268,11 @@ kubectl get pods
 ```
 <br>
 
-<walkthrough-editor-open-file filePath="./container-demo/deployment.yaml">Deploymentを開く</walkthrough-editor-open-file>
-
 Kubernetes に Deployment の宣言を適用します。
 
 ```sh
 cd ..
-kubectl apply -f deployment.yaml
+kubectl apply -f k8s/deployment.yaml
 ```
 <br>
 
@@ -292,12 +294,12 @@ kubectl get pods --watch
 
 このセクションでは Service を宣言して、Service により作成されたエンドポイントにアクセスします。
 
-<walkthrough-editor-open-file filePath="./container-demo/service.yaml">serviceを開く</walkthrough-editor-open-file>
+<walkthrough-editor-open-file filePath="./k8s/service.yaml">Serviceを確認する</walkthrough-editor-open-file>
 
 Service の宣言を Kubernetes に適用します。
 
 ```sh
-kubectl apply -f service.yaml
+kubectl apply -f k8s/service.yaml
 ```
 <br>
 
@@ -305,6 +307,22 @@ Service が作成される様子を確認します。
 
 ```sh
 kubectl get services --watch
+```
+
+EXTERNAL-IP が表示されたら、ブラウザでそのIPにアクセスしてください。
+DeploymentのPodが公開されていることが確認できます。
+
+次に、負荷分散されていることを確認します。まず、Podの名前を表示します。
+
+```sh
+kubectl get pods
+```
+
+何回か curl コマンドでアクセスして負荷分散されていることを確認します。
+
+```sh
+ip_address=$(kubectl get service hello -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+while :; do curl -s http://${ip_address}/; sleep 1; done
 ```
 
 ## セルフヒーリング
@@ -334,7 +352,7 @@ Deployment がすぐに新しい Pod を作り直す様子が確認できます�
 
 Deploymentの `NAME` 環境変数を書き換えます。
 
-<walkthrough-editor-open-file filePath="./container-demo/deployment.yaml">Deploymentを編集する</walkthrough-editor-open-file>
+<walkthrough-editor-open-file filePath="./k8s/deployment.yaml">Deploymentを編集する</walkthrough-editor-open-file>
 
 Pod の様子を確認します。
 
@@ -354,7 +372,7 @@ while :; do curl -s http://${ip_address}/; sleep 1; done
 新しい Deployment の宣言を適用します。
 
 ```sh
-kubectl apply -f deployment.yaml
+kubectl apply -f k8s/deployment.yaml
 ```
 <br>
 
